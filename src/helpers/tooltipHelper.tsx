@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CanvasActions, removePoint, updatePoint } from "../state/fabricState/canvasActions";
+import { CanvasActions, removePoint, setReRender, updatePoint } from "../state/fabricState/canvasActions";
 
 export const removePaths = (
 	canvas: fabric.Canvas,
@@ -14,8 +14,8 @@ export const removePaths = (
 
 	// Get the point reference from points state based on selected wall coords
 	const pointRef: TPoint = {
-		x: selectedWall.path[0][1],
-		y: selectedWall.path[0][2],
+		x: selectedWall.path[1][3],
+		y: selectedWall.path[1][4],
 	};
 
 	// Remove the vertex of the selected wall
@@ -26,6 +26,7 @@ export const removePaths = (
 	}
 
     dispatch(removePoint(pointRef));
+	dispatch(setReRender(true));
 };
 
 const getMidPoint = (coords: TCoords) => {
