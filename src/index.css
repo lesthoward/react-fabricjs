@@ -1,0 +1,63 @@
+#canvas {
+  border: .5px solid rgba(51, 51, 51, .5);
+  border-radius: 5px;
+}
+
+body { 
+  display: grid;
+  place-items: center;
+  font-family: 'Source Sans Pro';
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 1200px;
+  gap: 50px;
+  border: .5px solid rgba(51, 51, 51, .5);
+  border-radius: 5px;
+  padding: 75px;
+  margin-top: 50px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.canvasForm {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.canvasForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.canvasForm__button {
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.canvasForm__button--delete {
+  background: #e45f5f;
+  color: #fff;
+}
+
+.canvasForm__button--new {
+  background: #5f9ee4;
+  color: #fff;
+}
+
+.canvasForm__input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 2px solid rgba(51, 51, 51, .5);
+  font-size: 18px;
+  text-align: center;
+  outline: none;
+}
