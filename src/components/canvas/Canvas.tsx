@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { initParameters } from "../../common/constans";
 import {
 	makeNormalWalls,
 	makeVertices,

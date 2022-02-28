@@ -120,6 +120,9 @@ export const onMouseDown = (
 	changeVertexFill({ canvas, fill: "#fff", ...clickedPath });
 	
 	dispatch(setSelectedWall(clicked));
+	// @ts-ignore
+	console.log(e.target.path)
+	// console.log(e.target?.getBoundingRect());
 };
 
 const getSimilarWalls = (
@@ -173,19 +176,40 @@ export const onObjectMoving = (
 	pointer.set({fill: "#fff"});
 	const left = pointer.left as number;
 	const top = pointer.top as number;
-
+	
 	const referenceOfWalls: IExtendedPath[] = pointer.data?.referenceOfWalls;
 	referenceOfWalls.forEach((wall, index) => {
+		const x1 = wall.path[0][1];
+		const y1 = wall.path[0][2];
+		const x2 = wall.path[1][3];
+		const y2 = wall.path[1][4];
+		const xRadius = wall.path[1][1];
+		const yRadius = wall.path[1][2];
+
 		if (index === 0) {
 			// Before updating the path, we need to get the current values. It going to be used on object modified event
 			if (Object.keys(wall.data.prevPath).length === 0) {
 				wall.data.prevPath = formatPath(wall.path);
 			}
-
+			
 			wall.path[1][3] = left;
 			wall.path[1][4] = top;
-			wall.path[1][1] = left;
-			wall.path[1][2] = top;
+			
+			// wall.path[1][1] = left;
+			// wall.path[1][2] = top;
+
+			console.log(wall.data.equalXRadius)
+
+			if(x1 === xRadius || wall.data.radius.x) {
+				wall.path[1][1] = left;
+				wall.data.radius.x = true;
+			}
+			if (y1 === yRadius || wall.data.radius.y) {
+				wall.path[1][2] = top;
+				wall.data.radius.y = true;
+			}
+
+
 		} else {
 			if (Object.keys(wall.data.prevPath).length === 0) {
 				wall.data.prevPath = formatPath(wall.path);
@@ -193,9 +217,19 @@ export const onObjectMoving = (
 
 			wall.path[0][1] = left;
 			wall.path[0][2] = top;
+
 			wall.path[1][1] = left;
 			wall.path[1][2] = top;
+			// if(x1 === xRadius) {
+			// 	wall.path[1][1] = left;
+			// }
+			
+			// if(y1 === yRadius) {
+			// 	wall.path[1][2] = top;
+
+			// }
 		}
+		// console.log(wall.path[1][1], wall.path[1][2])
 	});
 };
 

@@ -57,4 +57,5 @@ export const addPoint = (
     const newCoords = getMidPoint(coords)
     const newPoint:IPoint = { ...newCoords, type: "rectWall" }
     dispatch(updatePoint({ indexPointRef: indexPoint, point: newPoint }))
+	dispatch(setReRender(true));
 };

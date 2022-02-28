@@ -30,8 +30,8 @@ const fabricPathDefaults: fabric.IPathOptions = {
 	lockSkewingY: true,
 	lockUniScaling: true,
 	hoverCursor: "grab",
-	// hasBorders: false,
-	// hasControls: false,
+	hasBorders: false,
+	hasControls: false,
 	objectCaching: false,
     originX: 'left',
     originY: 'center',
@@ -41,7 +41,11 @@ const fabricPathDefaults: fabric.IPathOptions = {
 	paintFirst: "fill",
     type: "path",
 	data: {
-		prevPath: {}
+		prevPath: {},
+		radius: {
+			x: false,
+			y: false
+		}
 	}
     
 };
@@ -51,7 +55,6 @@ export const makeFabricPath = (stringPath: string, name: string) => {
 		...fabricPathDefaults,
 		name,
 	});
-
 
 	return path
 };
