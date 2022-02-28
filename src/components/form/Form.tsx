@@ -47,6 +47,8 @@ const Form = () => {
 
 		const angle360 = getAngle360(selectedWall.path);
 
+        console.log("🚀 ~ file: Form.tsx ~ line 49 ~ handleRadius ~ angle360", angle360)
+
 		let centerX = selectedWall.path[1][1];
 		let centerY = selectedWall.path[1][2];
 
@@ -63,14 +65,15 @@ const Form = () => {
 
 		const hick = large / 2;
 		const point = new fabric.Point(centerX, centerY);
-		const xRadius = x1 + hick;
-		const yRadius = y2 - hick;
-		const curvedPoint = new fabric.Point(xRadius, yRadius);
+		
 
 		selectedWall.data.radius.x = false
 		selectedWall.data.radius.y = false
 
 		if (angle360 >= 0 && angle360 <= 90) {
+			const xRadius = x1 + hick;
+			const yRadius = y2 - hick;
+			const curvedPoint = new fabric.Point(xRadius, yRadius);
 
 			let interpolation = { x: 0, y: 0 } as fabric.Point;
 			
@@ -83,8 +86,56 @@ const Form = () => {
 			
 			centerY = interpolation.y;
 			centerX = interpolation.x;
-		} else {
+		} else if(angle360 >= 180 && angle360 <= 270) {
+			const xRadius = x1 - hick;
+			const yRadius = y2 + hick;
+			const curvedPoint = new fabric.Point(xRadius, yRadius);
 
+			let interpolation = { x: 0, y: 0 } as fabric.Point;
+			
+			if(radius < selectedWall.data.prevRadius) {
+				const prevMidPoint = selectedWall.getCenterPoint()
+				interpolation = point.lerp(new fabric.Point(prevMidPoint.x, prevMidPoint.y), 1 - radius);
+			} else {
+				interpolation = point.lerp(curvedPoint, radius);
+			}
+			
+			centerY = interpolation.y;
+			centerX = interpolation.x;
+		} else if(angle360 > 90 && angle360 < 180){
+			const xRadius = x2 + hick;
+			const yRadius = y1 + hick;
+			const curvedPoint = new fabric.Point(xRadius, yRadius);
+
+			let interpolation = { x: 0, y: 0 } as fabric.Point;
+			
+			if(radius < selectedWall.data.prevRadius) {
+				const prevMidPoint = selectedWall.getCenterPoint()
+				interpolation = point.lerp(new fabric.Point(prevMidPoint.x, prevMidPoint.y), 1 - radius);
+			} else {
+				interpolation = point.lerp(curvedPoint, radius);
+			}
+			
+			centerY = interpolation.y;
+			centerX = interpolation.x;
+		} else if (angle360 > 270 && angle360 < 360) {
+			console.log('here')
+
+			const xRadius = x2 - hick;
+			const yRadius = y1 - hick;
+			const curvedPoint = new fabric.Point(xRadius, yRadius);
+
+			let interpolation = { x: 0, y: 0 } as fabric.Point;
+			
+			if(radius < selectedWall.data.prevRadius) {
+				const prevMidPoint = selectedWall.getCenterPoint()
+				interpolation = point.lerp(new fabric.Point(prevMidPoint.x, prevMidPoint.y), 1 - radius);
+			} else {
+				interpolation = point.lerp(curvedPoint, radius);
+			}
+			
+			centerY = interpolation.y;
+			centerX = interpolation.x;
 		}
 
 		const fabricPath: fabric.Path = makePath({

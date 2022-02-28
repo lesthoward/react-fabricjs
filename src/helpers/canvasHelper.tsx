@@ -121,7 +121,7 @@ export const onMouseDown = (
 	
 	dispatch(setSelectedWall(clicked));
 	// @ts-ignore
-	console.log(e.target.path)
+	// console.log(e.target.path)
 	// console.log(e.target?.getBoundingRect());
 };
 
@@ -198,7 +198,6 @@ export const onObjectMoving = (
 			// wall.path[1][1] = left;
 			// wall.path[1][2] = top;
 
-			console.log(wall.data.equalXRadius)
 
 			if(x1 === xRadius || wall.data.radius.x) {
 				wall.path[1][1] = left;
